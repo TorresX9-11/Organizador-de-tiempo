@@ -53,23 +53,39 @@ document.getElementById('add-time-slot').addEventListener('click', () => {
 
 // Continuar al paso 2
 document.getElementById('continue-btn').addEventListener('click', () => {
-    // Guardar los datos del horario en localStorage o enviarlos al servidor
-    // Esto es simulado - en una implementación real procesaríamos los datos ingresados
+    const timeSlots = document.querySelectorAll('.time-slot');
+    const scheduleData = [];
 
-    // Guardar datos en localStorage (simulación)
-    const scheduleData = {
-        monday: [
-            { time: "8:00 - 9:30", activity: "Matemáticas", type: "class" },
-            { time: "9:45 - 11:15", activity: "Física", type: "class" },
-            { time: "11:30 - 13:00", activity: "Estudio libre", type: "study" }
-        ]
-        // Aquí se agregarían los datos de los demás días
-    };
+    timeSlots.forEach(slot => {
+        const timeInputs = slot.querySelectorAll('input[type="time"]');
+        const activityInput = slot.querySelector('input[type="text"]').value;
+        const typeSelect = slot.querySelector('select').value;
 
-    localStorage.setItem('zenithSchedule', JSON.stringify(scheduleData));
+        scheduleData.push({
+            time: `${timeInputs[0].value} - ${timeInputs[1].value}`,
+            activity: activityInput,
+            type: typeSelect
+        });
+    });
 
-    // Redireccionar al siguiente paso
-    window.location.href = '../zenith-optimize.html';
+    // Enviar datos al servidor PHP
+    fetch('http://localhost/organizador/save_schedule.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ day: 'monday', schedule: scheduleData })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            window.location.href = '../zenith-optimize.html';
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
 });
 
 // Guardar borrador
