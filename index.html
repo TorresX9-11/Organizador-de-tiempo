@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith - Organizador de tiempo para estudiantes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4caf50;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 2rem;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+            background: linear-gradient(to right, #4361ee, #4cc9f0);
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .explanation {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem auto;
+            box-shadow: var(--shadow);
+            text-align: center;
+            max-width: 900px;
+        }
+        
+        .explanation h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .steps-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+            gap: 1.5rem;
+        }
+        
+        .step-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .step-content {
+            padding: 1.5rem;
+        }
+        
+        .step-content h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .step-content p {
+            color: #666;
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+        }
+        
+        .cta {
+            text-align: center;
+            margin: 3rem 0;
+        }
+        
+        .cta .btn {
+            font-size: 1.2rem;
+            padding: 1rem 3rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                transition: 0.3s;
+                padding: 1rem 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li {
+                margin: 1rem 0;
+            }
+            
+            .steps-container {
+                flex-direction: column;
+            }
+            
+            .step-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">Zenith</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="Ventanas/pag2/zenith-schedule.html">Tu Horario</a></li>
+                    <li><a href="Ventanas/pag3/zenith-finalize.html">Calendario</a></li>
+                    <li><a href="about.html">Acerca de</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Organiza tu tiempo con Zenith</h1>
+            <p>Potencia tu productividad académica con nuestra plataforma inteligente de gestión de tiempo diseñada especialmente para estudiantes.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="explanation">
+            <h2>¿Cómo funciona Zenith?</h2>
+            <p>Zenith es una plataforma inteligente que analiza tu horario de clases y te ayuda a encontrar los mejores momentos para estudiar, hacer tareas o simplemente relajarte. Utilizando inteligencia artificial, identificamos patrones óptimos para tu productividad y te recomendamos cuándo programar tus actividades.</p>
+        </div>
+
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">Paso 1</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <i class="far fa-calendar-alt"></i>
+                    </div>
+                    <h3>Registra tu horario</h3>
+                    <p>Ingresa los detalles de tu horario actual de clases, incluidos los tiempos de traslado y las actividades fijas que ya tienes comprometidas.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">Paso 2</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Análisis inteligente</h3>
+                    <p>Nuestra IA analiza tus espacios libres y te sugiere los mejores momentos para programar tus actividades según tu perfil de productividad.</p>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">Paso 3</div>
+                <div class="step-content">
+                    <div class="step-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Disfruta tu horario</h3>
+                    <p>Accede a tu horario optimizado en cualquier momento, realiza ajustes según sea necesario y guárdalo para referencia futura o compártelo con amigos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <a href="Ventanas/pag2/zenith-schedule.html" class="btn">¡Comenzar ahora!</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Zenith - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript para el menú hamburguesa
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
