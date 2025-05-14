@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Horario - Zenith</title>
+    <title>Horario Semanal - Zenith</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/style_shedule.css">
 </head>
@@ -29,88 +29,49 @@
 
     <section class="page-title">
         <div class="container">
-            <h1>Paso 1: Registro de tu horario</h1>
+            <h1>Registro de tu horario semanal</h1>
             <p>Añade tus clases y actividades fijas para comenzar a optimizar tu tiempo</p>
         </div>
     </section>
 
     <div class="container">
-        <div class="ai-assist">
-            <div class="ai-icon">
-                <i class="fas fa-robot"></i>
-            </div>
-            <div class="ai-content">
-                <h3>Asistente IA</h3>
-                <p>¿Quieres que te ayude a configurar tu horario? Puedo importar tu horario académico desde un archivo o
-                    puedo ayudarte a configurarlo manualmente.</p>
-                <div class="ai-actions">
-                    <button class="btn" id="ai-import">Importar horario</button>
-                    <button class="btn btn-outline" id="ai-help">Ayuda manual</button>
-                </div>
-            </div>
-        </div>
-
         <div class="schedule-container">
             <h2>Configura tu horario semanal</h2>
+            <table id="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Lunes</th>
+                        <th>Martes</th>
+                        <th>Miércoles</th>
+                        <th>Jueves</th>
+                        <th>Viernes</th>
+                        <th>Sábado</th>
+                        <th>Domingo</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-body">
+                    <tr>
+                        <td>
+                            <input type="time"> a <input type="time">
+                        </td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <div class="day-selector">
-                <button class="day-btn active" data-day="monday">Lunes</button>
-                <button class="day-btn" data-day="tuesday">Martes</button>
-                <button class="day-btn" data-day="wednesday">Miércoles</button>
-                <button class="day-btn" data-day="thursday">Jueves</button>
-                <button class="day-btn" data-day="friday">Viernes</button>
-                <button class="day-btn" data-day="saturday">Sábado</button>
-                <button class="day-btn" data-day="sunday">Domingo</button>
-            </div>
-
-            <div class="time-slots" id="monday-slots">
-                <div class="time-slot">
-                    <div class="time">8:00 - 9:30</div>
-                    <div class="slot-input">
-                        <input type="text" placeholder="Nombre de la actividad o clase">
-                        <select>
-                            <option value="class">Clase</option>
-                            <option value="study">Estudio</option>
-                            <option value="work">Trabajo</option>
-                            <option value="personal">Personal</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="time-slot">
-                    <div class="time">9:45 - 11:15</div>
-                    <div class="slot-input">
-                        <input type="text" placeholder="Nombre de la actividad o clase">
-                        <select>
-                            <option value="class">Clase</option>
-                            <option value="study">Estudio</option>
-                            <option value="work">Trabajo</option>
-                            <option value="personal">Personal</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="time-slot">
-                    <div class="time">11:30 - 13:00</div>
-                    <div class="slot-input">
-                        <input type="text" placeholder="Nombre de la actividad o clase">
-                        <select>
-                            <option value="class">Clase</option>
-                            <option value="study">Estudio</option>
-                            <option value="work">Trabajo</option>
-                            <option value="personal">Personal</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <button class="add-slot" id="add-time-slot">
-                <i class="fas fa-plus"></i> Añadir actividad
-            </button>
-
-            <div class="actions">
-                <button class="btn btn-outline" id="save-draft">Guardar borrador</button>
-                <button class="btn" id="continue-btn">Continuar al paso 2</button>
+            <div class="actions" style="margin-top: 10px;">
+                <button class="btn" onclick="addRow()"><i class="fas fa-plus"></i> Añadir actividad</button>
+                <button class="btn btn-outline" onclick="clearSchedule()">Limpiar todo</button>
+                <button id="save-draft" class="save-draft">
+                    💾 Guardar borrador
+                </button>
             </div>
         </div>
     </div>
@@ -120,6 +81,7 @@
             <p>&copy; 2025 Zenith - Todos los derechos reservados</p>
         </div>
     </footer>
+
 
     <script src="../../assets/js/script_schedule.js"></script>
 </body>
